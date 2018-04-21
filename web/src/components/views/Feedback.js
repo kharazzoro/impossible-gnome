@@ -86,11 +86,12 @@ export default class Feedback extends Component {
                   "Thank you very much for your Feedback, we appreciate that"
               },
               () => {
-                //clear the error message
+                //clear the error message and redirect to home
                 setTimeout(() => {
                   this.setState({
                     successMessage: null
                   });
+                  this.props.history.push("/feed");
                 }, 5000);
               }
             );
