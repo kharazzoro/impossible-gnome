@@ -86,7 +86,7 @@ const Main = props => {
       <Route path="/userAgreement" render={() => <UserAgreement />} />
       <Route path="/privacyPolicy" render={() => <PrivacyPolicy />} />
       <Route path="/faq" render={() => <Faq />} />
-      <Route path="/feedback" render={() => <Feedback />} />
+      <Route path="/feedback" render={(routeProps) => <Feedback {...routeProps} />} />
     </Switch>
   );
 };
