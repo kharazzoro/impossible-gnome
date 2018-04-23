@@ -5,13 +5,22 @@ import Comment from "../components/Comment";
 import '../assets/css/view/DisplayComment.css'
 export default class DisplayComment extends Component {
   state = {
-    showAllcomments: false
+    showAllcomments: false,
+    viewCommentText:'View All Comments'
   };
 
   toggleShowAllComments = () => {
-    this.setState({
-      showAllcomments: !this.state.showAllcomments
-    });
+    if(this.state.viewCommentText==='View All Comments'){
+      return  this.setState({
+                showAllcomments: !this.state.showAllcomments,
+                viewCommentText:'Show less Comments'
+      })
+    }else{
+      return  this.setState({
+                showAllcomments: !this.state.showAllcomments,
+                viewCommentText:'View All Comments'
+      })
+    }
   };
 
   isPageRady = () => {
@@ -39,7 +48,7 @@ export default class DisplayComment extends Component {
                       <span
                         className="showComment"
                         onClick={this.toggleShowAllComments}>
-                        View all comments&nbsp;&nbsp;{`(${
+                        {this.state.viewCommentText}{`(${
                           this.props.comments.length
                         })`}
                       </span>
