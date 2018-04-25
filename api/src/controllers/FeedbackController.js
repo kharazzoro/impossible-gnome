@@ -24,8 +24,13 @@ class FeedbackController extends Controller {
   }
 
   feedbackHandler(request, reply) {
-    EmailService.sendFeedbackEmail(request.payload);
-    reply(true).code(200);
+    if (request.payload.email === "test@test.com") {
+      reply(true).code(200);
+    }else{
+      EmailService.sendFeedbackEmail(request.payload);
+      reply(true).code(200);
+
+    }
   }
 }
 
