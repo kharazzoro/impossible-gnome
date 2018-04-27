@@ -67,6 +67,7 @@ export default class Feedback extends Component {
       );
     } else {
       const { error, successMessage, ...feedback } = this.state;
+      const { user } = this.props;
 
       fetch("/api/feedback", {
         method: "POST",
@@ -91,7 +92,7 @@ export default class Feedback extends Component {
                   this.setState({
                     successMessage: null
                   });
-                  this.props.history.push("/feed");
+                  user?this.props.history.push("/feed"):this.props.history.push("/")
                 }, 5000);
               }
             );
@@ -117,7 +118,7 @@ export default class Feedback extends Component {
     }
   };
   render() {
-    return (
+      return (
       <Row className="footerLinks">
         <Col sm={12}>
           <Row>
