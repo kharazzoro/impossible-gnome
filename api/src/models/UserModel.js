@@ -536,6 +536,24 @@ class UserModel extends Model {
       );
     });
   }
+
+  getAllOrganisations(){
+    return new Sequence((accept, reject) => {
+      this.db.query(
+        `MATCH (u:Person {userType: 'organisation'})
+        RETURN  COLLECT({
+          userID:u.userID,role:u.role,organisationName:u.organisationName,
+          email:u.email,firstName:u.firstName,lastName:u.lastName,approved:u.approved
+          ,imageSource:u.imageSource
+        })`,
+        (err, organisations) => {
+           if (err) return reject(err);
+          return accept(organisations);
+        }
+      );
+    });
+  }
+
 }
 
 module.exports = new UserModel();
