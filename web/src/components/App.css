@@ -853,6 +853,13 @@ hr {
   top: 21.5%;
   position: fixed;
 }
+#usersBelongToGroup{
+  top: 65.5%;
+  position: fixed;
+  left: 3%;
+  z-index: 999;
+
+}
 
 #filterPosts {
   left: 3%;
@@ -867,21 +874,34 @@ hr {
   z-index: 999;
 }
 
-#createPostButton .postBtn {
+#createPostButton .postBtn,#usersBelongToGroup .groupBtn {
   border: none;
   background: #fff;
   color: #000;
   font-weight: 600;
 }
 
-#createPostButton i {
+#createPostButton i{
   color: #6acf89;
   font-size: 1.5em;
   vertical-align: middle;
   font-weight: 900;
 }
 
+ #usersBelongToGroup i{
+  color: #000;
+  font-size: 1.7em;
+  vertical-align: middle;
+  font-weight: 900;
+}
+
 #createPostButton button:hover {
+  background: #ed684b;
+  color: #fff;
+}
+
+
+#usersBelongToGroup button:hover {
   background: #ed684b;
   color: #fff;
 }

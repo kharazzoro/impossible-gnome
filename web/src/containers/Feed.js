@@ -344,6 +344,20 @@ class Feed extends Component {
           ) : (
             ""
           )}
+          {(user && (user.userType === "organisation" && user.approved)) ||
+          user.admin ? (
+            <Col sm={2} id="usersBelongToGroup">
+              <Button
+                className="btn btn-primary btn btn-secondary groupBtn"
+                onClick={this.loadPost}
+              >
+                 <i class="fa fa-users" aria-hidden="true"/>&nbsp;&nbsp;
+                 Group Members
+              </Button>
+            </Col>
+          ) : (
+            ""
+          )}
           {this.state.showProfile ? (
             <Profile
               userID={this.state.pofileUserID}
