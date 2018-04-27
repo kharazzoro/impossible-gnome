@@ -1,0 +1,13 @@
+.col .table.table-bordered.table-dark{
+    margin-top:40px;
+    width:90%;
+    margin:auto;
+    margin-top:30px;
+    margin-bottom:30px; 
+}
+.col .table.table-bordered.table-dark td{
+    text-align: center;
+ }
+.col .table.table-bordered.table-dark th{
+    text-align: center;
+ }

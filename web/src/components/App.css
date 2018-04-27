@@ -92,7 +92,7 @@ strong {
   padding-top: 0.5em;
 }
 
-#headerApproveOrgsLink,
+#headerAdminDashboardLink,
 #headerLogoutLink,
 #headerFeedLink,
 #headerSignInLink,
@@ -149,12 +149,12 @@ strong {
   padding-left: 0;
 }
 
-#headerApproveOrgsLink {
+#headerAdminDashboardLink {
   text-align: right;
   padding-right: 1em;
 }
 
-#headerApproveOrgsLink span,
+#headerAdminDashboardLink span,
 #headerSignInLink span,
 #headerFeedLink span,
 #headerProfileLink span {
@@ -173,7 +173,7 @@ strong {
   border-bottom: 4px solid #ffcd48;
 }
 
-#headerApproveOrgsLink span:hover,
+#headerAdminDashboardLink span:hover,
 #headerLogoutLink span:hover,
 #headerSignInLink span:hover,
 #headerFeedLink span:hover,
@@ -181,7 +181,7 @@ strong {
   border-bottom: 4px solid #ff4754;
 }
 
-#headerApproveOrgsLink,
+#headerAdminDashboardLink,
 #headerLogoutLink {
   margin-left: 0;
   margin-right: 0;

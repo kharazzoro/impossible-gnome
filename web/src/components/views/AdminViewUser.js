@@ -74,7 +74,6 @@ export default class AdminViewUser extends Component {
                     <td>{orgs.lastName}</td>
                     <td>{orgs.organisationName}</td>
                     <td>{orgs.role}</td>
-                    {orgs.approved ? <td>&#9989;</td> : <td> &#10006;</td>}
                     <td>{orgs.email}</td>
                     {orgs.approved ? <td>&#9989;</td> : <td> &#10006;</td>}
                     <td>

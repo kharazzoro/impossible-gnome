@@ -95,7 +95,7 @@ class Header extends Component {
         location.pathname !== "/privacyPolicy" &&
         location.pathname !== "/faq" &&
         location.pathname !== "/feedback" ? (
-          <Col sm={3} id="headerApproveOrgsLink">
+          <Col sm={3} id="headerAdminDashboardLink">
             <span
               className={location.pathname === "/admin" ? "activePage" : ""}
               onClick={() => {
@@ -105,7 +105,7 @@ class Header extends Component {
               }}>
               <span className="headerLinkTextContent">
                 {" "}
-                Manage User&nbsp;&nbsp;
+                Admin Dashboard&nbsp;&nbsp;
               </span>
               <i className="fa fa-gears" aria-hidden="true" />
             </span>
