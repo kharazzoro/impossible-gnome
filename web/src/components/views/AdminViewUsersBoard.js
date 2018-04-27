@@ -3,7 +3,7 @@ import { Col, Row, Container } from "reactstrap";
 import "../../assets/css/view/AdminDashBoard.css";
 import { spawn } from "child_process";
 
-export default class AdminDashboard extends Component {
+export default class AdminViewUsersBoard extends Component {
   render() {
     const { location } = this.props;
     const { user } = this.props;
@@ -24,11 +24,11 @@ export default class AdminDashboard extends Component {
               <span
                 onClick={() => {
                   this.props.history.push({
-                    pathname: "/approve-users"
+                    pathname: "/admin-view-users-volunteers"
                   });
                 }}
               >
-                Approve Users
+                 Volunteers
               </span>
             </Col>
           ) : null}
@@ -49,11 +49,11 @@ export default class AdminDashboard extends Component {
               <span
                 onClick={() => {
                   this.props.history.push({
-                    pathname: "/admin-view-users-menu"
+                    pathname: "/admin-view-users-orgs"
                   });
                 }}
               >
-                View Users
+                 Organistations
               </span>
             </Col>
           ) : null}

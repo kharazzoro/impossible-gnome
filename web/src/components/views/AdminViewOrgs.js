@@ -2,14 +2,14 @@ import React, { Component, Fragment } from "react";
 import { Col, Row, Container, Table, Button } from "reactstrap";
 import { spawn } from "child_process";
 import "../../assets/css/view/AdminViewUser.css";
-export default class AdminViewUser extends Component {
+export default class AdminViewOrgs extends Component {
   state = {
     organizations: []
   };
   componentWillMount() {
-    this.getNotApprovedOrgs();
+    this.getAllOrgs();
   }
-  getNotApprovedOrgs = () => {
+  getAllOrgs = () => {
     fetch("/api/all/arganisations", {
       credentials: "same-origin",
       method: "GET",
@@ -36,10 +36,6 @@ export default class AdminViewUser extends Component {
   render() {
     const { location } = this.props;
     const { user } = this.props;
-
-    if (this.state) {
-      console.log(this.state.organizations);
-    }
     return (
       <Fragment>
         {user && !user.admin && location.pathname !== "/" ? (

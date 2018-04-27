@@ -554,6 +554,22 @@ class UserModel extends Model {
     });
   }
 
+  getAllVolunteers(){
+    return new Sequence((accept, reject) => {
+      this.db.query(
+        `MATCH (u:Person {userType: 'volunteer'})
+        RETURN  COLLECT({
+          userID:u.userID,imageSource:u.imageSource,
+          email:u.email,firstName:u.firstName,lastName:u.lastName
+        })`,
+        (err, volunteers) => {
+           if (err) return reject(err);
+          return accept(volunteers);
+        }
+      );
+    });
+  }
+
 }
 
 module.exports = new UserModel();

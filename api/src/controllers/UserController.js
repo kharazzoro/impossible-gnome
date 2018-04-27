@@ -47,6 +47,13 @@ class UserController extends Controller {
       handler: this.getAllOrganisations
     });
 
+    this.route("getAllVolunteers", {
+      method: "GET",
+      path: "/api/all/volunteers",
+      auth: "session",
+      handler: this.getAllVolunteers
+    });
+
     this.route("getPosts", {
       method: "GET",
       path: "/api/user/post",
@@ -146,6 +153,14 @@ class UserController extends Controller {
       .error(err => reply({ msg: err }).code(400));
   }
 
+  getAllVolunteers(request, reply) {
+    userModel
+      .getAllVolunteers()
+     .done(data => {
+       reply(Object.assign({}, data)).code(200);
+      })
+      .error(err => reply({ msg: err }).code(400));
+  }
 
   updateUser(request, reply) {
     let payload = request.payload;

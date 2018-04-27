@@ -11,3 +11,6 @@
 .col .table.table-bordered.table-dark th{
     text-align: center;
  }
+ .col .table.table-bordered.table-dark thead{
+     background: #4f5e69;
+  }
