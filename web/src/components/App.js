@@ -16,7 +16,9 @@ import { Row, Col } from "reactstrap";
 import Header from "./views/Header";
 import Footer from "./views/Footer";
 import UpdateInterest from "./views/UpdateInterest";
-import AdminDashBoard from "./views/AdminDashBoard";
+import AdminApproveUsers from "./views/AdminApproveUsers";
+import AdminDashboard from "./views/AdminDashboard";
+import AdminViewUser from "./views/AdminViewUser";
 import UserAgreement from "./views/UserAgreement";
 import PrivacyPolicy from "./views/PrivacyPolicy";
 import Faq from "./views/Faq";
@@ -73,9 +75,31 @@ const Main = props => {
         )}
       />
       <Route
+        path="/approve-users"
+        render={routeProps => (
+          <AdminApproveUsers
+            {...routeProps}
+            user={props.user}
+            setUser={props.setUser}
+            getUser={props.getUser}
+          />
+        )}
+      />
+      <Route
         path="/admin"
         render={routeProps => (
-          <AdminDashBoard
+          <AdminDashboard
+            {...routeProps}
+            user={props.user}
+            setUser={props.setUser}
+            getUser={props.getUser}
+          />
+        )}
+      />
+      <Route
+        path="/view-user"
+        render={routeProps => (
+          <AdminViewUser
             {...routeProps}
             user={props.user}
             setUser={props.setUser}
