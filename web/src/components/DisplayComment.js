@@ -2,25 +2,23 @@ import React, { Component, Fragment } from "react";
 import { Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { CSSTransitionGroup } from "react-transition-group";
 import Comment from "../components/Comment";
-import '../assets/css/view/DisplayComment.css'
+import "../assets/css/view/DisplayComment.css";
 export default class DisplayComment extends Component {
   state = {
     showAllcomments: false,
-    viewCommentText:'View All Comments'
+    viewCommentText: "View All Comments"
   };
 
   toggleShowAllComments = () => {
-    if(this.state.viewCommentText==='View All Comments'){
-      return  this.setState({
-                showAllcomments: !this.state.showAllcomments,
-                viewCommentText:'Show less Comments'
-      })
-    }else{
-      return  this.setState({
-                showAllcomments: !this.state.showAllcomments,
-                viewCommentText:'View All Comments'
-      })
-    }
+    this.state.viewCommentText === "View All Comments"
+      ? this.setState({
+          showAllcomments: !this.state.showAllcomments,
+          viewCommentText: "View less Comments"
+        })
+      : this.setState({
+          showAllcomments: !this.state.showAllcomments,
+          viewCommentText: "View All Comments"
+        });
   };
 
   isPageRady = () => {
@@ -48,9 +46,8 @@ export default class DisplayComment extends Component {
                       <span
                         className="showComment"
                         onClick={this.toggleShowAllComments}>
-                        {this.state.viewCommentText}{`(${
-                          this.props.comments.length
-                        })`}
+                        {this.state.viewCommentText}
+                        {`(${this.props.comments.length})`}
                       </span>
                     </span>
                   </Col>
