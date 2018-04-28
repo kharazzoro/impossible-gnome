@@ -25,12 +25,15 @@ class FeedbackController extends Controller {
 
   feedbackHandler(request, reply) {
     //check email if is for testing purposes will return sucess without sending email
-    if (request.payload.email === "test@test.com") {
-      reply(true).code(200);
-    } else {
+    
+    const sucessFeedback = () => {
       EmailService.sendFeedbackEmail(request.payload);
       reply(true).code(200);
-    }
+    };
+
+    request.payload.email === "test@test.com"
+      ? reply(true).code(200)
+      : sucessFeedback();
   }
 }
 
