@@ -537,7 +537,22 @@ class UserModel extends Model {
     });
   }
 
-  getAllOrganisations(){
+  getUsers() {
+    return new Sequence((accept, reject) => {
+      this.db.query(
+        `MATCH (u:Person)
+        RETURN  COLLECT({userID:u.userID,userType:u.userType,
+          email:u.email,firstName:u.firstName,lastName:u.lastName}
+          ) `,
+        (err, users) => {
+          if (err) return reject(err);
+          return accept(users);
+        }
+      );
+    });
+  }
+
+  getOrganisations() {
     return new Sequence((accept, reject) => {
       this.db.query(
         `MATCH (u:Person {userType: 'organisation'})
@@ -547,14 +562,14 @@ class UserModel extends Model {
           ,imageSource:u.imageSource
         })`,
         (err, organisations) => {
-           if (err) return reject(err);
+          if (err) return reject(err);
           return accept(organisations);
         }
       );
     });
   }
 
-  getAllVolunteers(){
+  getVolunteers() {
     return new Sequence((accept, reject) => {
       this.db.query(
         `MATCH (u:Person {userType: 'volunteer'})
@@ -563,13 +578,12 @@ class UserModel extends Model {
           email:u.email,firstName:u.firstName,lastName:u.lastName
         })`,
         (err, volunteers) => {
-           if (err) return reject(err);
+          if (err) return reject(err);
           return accept(volunteers);
         }
       );
     });
   }
-
 }
 
 module.exports = new UserModel();

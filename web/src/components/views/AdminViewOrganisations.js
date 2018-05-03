@@ -1,15 +1,15 @@
 import React, { Component, Fragment } from "react";
 import { Col, Table, Button } from "reactstrap";
 import "../../assets/css/view/AdminViewUser.css";
-export default class AdminViewVolunteers extends Component {
+export default class AdminViewOrganisations extends Component {
   state = {
-    volunteers: []
+    organizations: []
   };
   componentWillMount() {
-    this.getVolunteers();
+    this.getOrganisations();
   }
-  getVolunteers = () => {
-    fetch("/api/users/volunteers", {
+  getOrganisations = () => {
+    fetch("/api/users/organisations", {
       credentials: "same-origin",
       method: "GET",
       headers: {
@@ -26,7 +26,7 @@ export default class AdminViewVolunteers extends Component {
         //expected response {0 : Array(x)}
         if (response[0].length >= 1) {
           this.setState({
-            volunteers: response[0]
+            organizations: response[0]
           });
         }
       })
@@ -48,24 +48,36 @@ export default class AdminViewVolunteers extends Component {
         location.pathname !== "/faq" &&
         location.pathname !== "/feedback" ? (
           <Col>
-             <Table dark bordered hover>
+            <Table dark bordered hover>
               <thead>
                 <tr>
                   <th>#</th>
                   <th>First Name</th>
                   <th>Last Name</th>
-                    <th>Email</th>
-                   <th>View</th>
+                  <th>Organisation</th>
+                  <th>Role</th>
+                  <th>Email</th>
+                  <th>Approved</th>
+                  <th>View</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.volunteers.map((volun, i) => (
+                {this.state.organizations.map((orgs, i) => (
                   <tr key={i}>
                     <th scope="row">{i + 1}</th>
-                    <td>{volun.firstName}</td>
-                    <td>{volun.lastName}</td>
-                     <td>{volun.email}</td>
-                     <td>
+                    <td>{orgs.firstName}</td>
+                    <td>{orgs.lastName}</td>
+                    <td>{orgs.organisationName}</td>
+                    <td>{orgs.role}</td>
+                    <td>{orgs.email}</td>
+                    {orgs.approved ? (
+                      <td>
+                        <span role="img" aria-label="approved">&#9989;</span>
+                      </td>
+                    ) : (
+                      <td> <span role="img" aria-label="not approved">&#10006;</span></td>
+                    )}
+                    <td>
                       <Button>View</Button>
                     </td>
                   </tr>

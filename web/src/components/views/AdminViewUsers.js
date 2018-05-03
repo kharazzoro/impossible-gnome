@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from "react";
-import { Col, Row, Container, Table, Button } from "reactstrap";
-import { spawn } from "child_process";
+import { Col, Table, Button } from "reactstrap";
 import "../../assets/css/view/AdminViewUser.css";
-export default class AdminViewOrgs extends Component {
+
+export default class AdminViewUsers extends Component {
   state = {
-    organizations: []
+    users: []
   };
   componentWillMount() {
-    this.getAllOrgs();
+    this.getUsers();
   }
-  getAllOrgs = () => {
-    fetch("/api/all/arganisations", {
+  getUsers = () => {
+    fetch("/api/users", {
       credentials: "same-origin",
       method: "GET",
       headers: {
@@ -27,7 +27,7 @@ export default class AdminViewOrgs extends Component {
         //expected response {0 : Array(x)}
         if (response[0].length >= 1) {
           this.setState({
-            organizations: response[0]
+            users: response[0]
           });
         }
       })
@@ -55,24 +55,20 @@ export default class AdminViewOrgs extends Component {
                   <th>#</th>
                   <th>First Name</th>
                   <th>Last Name</th>
-                  <th>Organisation</th>
-                  <th>Role</th>
+                  <th>user type</th>
                   <th>Email</th>
-                  <th>Approved</th>
                   <th>View</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.organizations.map((orgs, i) => (
+                {this.state.users.map((user, i) => (
                   <tr key={i}>
                     <th scope="row">{i + 1}</th>
-                    <td>{orgs.firstName}</td>
-                    <td>{orgs.lastName}</td>
-                    <td>{orgs.organisationName}</td>
-                    <td>{orgs.role}</td>
-                    <td>{orgs.email}</td>
-                    {orgs.approved ? <td>&#9989;</td> : <td> &#10006;</td>}
-                    <td>
+                    <td>{user.firstName}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.userType}</td>
+                     <td>{user.email}</td>
+                     <td>
                       <Button>View</Button>
                     </td>
                   </tr>

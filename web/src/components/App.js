@@ -19,9 +19,9 @@ import UpdateInterest from "./views/UpdateInterest";
 import AdminApproveUsers from "./views/AdminApproveUsers";
 import AdminViewUsersBoard from "./views/AdminViewUsersBoard";
 import AdminDashboard from "./views/AdminDashboard";
-import AdminViewOrgs from "./views/AdminViewOrgs";
+import AdminViewOrganisations from "./views/AdminViewOrganisations";
 import AdminViewVolunteers from "./views/AdminViewVolunteers";
-
+import AdminViewUsers from "./views/AdminViewUsers";
 import UserAgreement from "./views/UserAgreement";
 import PrivacyPolicy from "./views/PrivacyPolicy";
 import Faq from "./views/Faq";
@@ -109,11 +109,11 @@ const Main = props => {
             getUser={props.getUser}
           />
         )}
-      /> 
+      />
       <Route
-        path="/admin-view-users-orgs"
+        path="/admin-view-users-organisations"
         render={routeProps => (
-          <AdminViewOrgs
+          <AdminViewOrganisations
             {...routeProps}
             user={props.user}
             setUser={props.setUser}
@@ -121,7 +121,18 @@ const Main = props => {
           />
         )}
       />
-       <Route
+      <Route
+        path="/admin-view-users"
+        render={routeProps => (
+          <AdminViewUsers
+            {...routeProps}
+            user={props.user}
+            setUser={props.setUser}
+            getUser={props.getUser}
+          />
+        )}
+      />
+      <Route
         path="/admin-view-users-volunteers"
         render={routeProps => (
           <AdminViewVolunteers

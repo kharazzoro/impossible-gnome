@@ -40,18 +40,25 @@ class UserController extends Controller {
       handler: this.getUser
     });
 
-    this.route("getAllOrganisations", {
+    this.route("getUsers", {
       method: "GET",
-      path: "/api/all/arganisations",
+      path: "/api/users",
       auth: "session",
-      handler: this.getAllOrganisations
+      handler: this.getUsers
     });
 
-    this.route("getAllVolunteers", {
+    this.route("getOrganisations", {
       method: "GET",
-      path: "/api/all/volunteers",
+      path: "/api/users/organisations",
       auth: "session",
-      handler: this.getAllVolunteers
+      handler: this.getOrganisations
+    });
+
+    this.route("getVolunteers", {
+      method: "GET",
+      path: "/api/users/volunteers",
+      auth: "session",
+      handler: this.getVolunteers
     });
 
     this.route("getPosts", {
@@ -144,20 +151,29 @@ class UserController extends Controller {
       .error(err => reply({ msg: err }).code(400));
   }
 
-  getAllOrganisations(request, reply) {
+  getUsers(request, reply) {
     userModel
-      .getAllOrganisations()
-     .done(data => {
-       reply(Object.assign({}, data)).code(200);
+      .getUsers()
+      .done(data => {
+        reply(Object.assign({}, data)).code(200);
       })
       .error(err => reply({ msg: err }).code(400));
   }
 
-  getAllVolunteers(request, reply) {
+  getOrganisations(request, reply) {
     userModel
-      .getAllVolunteers()
-     .done(data => {
-       reply(Object.assign({}, data)).code(200);
+      .getOrganisations()
+      .done(data => {
+        reply(Object.assign({}, data)).code(200);
+      })
+      .error(err => reply({ msg: err }).code(400));
+  }
+
+  getVolunteers(request, reply) {
+    userModel
+      .getVolunteers()
+      .done(data => {
+        reply(Object.assign({}, data)).code(200);
       })
       .error(err => reply({ msg: err }).code(400));
   }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Col, Row, Container } from "reactstrap";
 import "../../assets/css/view/AdminDashBoard.css";
-import { spawn } from "child_process";
 
 const AdminDashboard=(props)=>{
   const { location } = props;
