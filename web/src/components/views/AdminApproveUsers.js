@@ -122,8 +122,6 @@ export default class AdminApproveUsers extends Component {
                     caret
                     outline
                     color="info"
-                    //to avoid Warning: Failed prop type: Invalid prop `disabled` of
-                    //type `string` supplied to `Button`, expected `boolean`
                     disabled={this.state.disableDropdownAndApproveButton}
                   >
                     &nbsp;Emails that need approval&nbsp;
@@ -136,7 +134,6 @@ export default class AdminApproveUsers extends Component {
                     {listOfEmailsNeedsApproval &&
                       listOfEmailsNeedsApproval.map((email, index) => {
                         return (
-                          //to avoid Warning: Each child in an array or iterator should have a unique "key" prop.
                           <Fragment key={index}>
                             <DropdownItem
                               key={index}
