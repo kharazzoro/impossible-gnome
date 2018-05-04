@@ -82,6 +82,17 @@ strong {
   width: 280px;
 }
 
+ .mobile-landing #LandingHeader{
+  text-align: center;
+  margin: 10px;
+  margin-bottom:40px;
+}
+
+.mobile-landing #LandingHeader {
+  height: 50px;
+  width: 280px;
+}
+
 .App-header #headerLogoImage img {
   width: 100%;
   height: 30px;
@@ -849,7 +860,7 @@ hr {
 }
 
 #filterPosts,
-#createPostButton {
+#createPostButton,#textWarning {
   top: 21.5%;
   position: fixed;
 }
@@ -869,39 +880,26 @@ hr {
   margin-top: 0;
 }
 
-#createPostButton {
+#createPostButton,#textWarning {
   right: 2%;
   z-index: 999;
 }
 
-#createPostButton .postBtn,#usersBelongToGroup .groupBtn {
+#createPostButton .postBtn {
   border: none;
   background: #fff;
   color: #000;
   font-weight: 600;
 }
 
-#createPostButton i{
+#createPostButton i {
   color: #6acf89;
   font-size: 1.5em;
   vertical-align: middle;
   font-weight: 900;
 }
 
- #usersBelongToGroup i{
-  color: #000;
-  font-size: 1.7em;
-  vertical-align: middle;
-  font-weight: 900;
-}
-
 #createPostButton button:hover {
-  background: #ed684b;
-  color: #fff;
-}
-
-
-#usersBelongToGroup button:hover {
   background: #ed684b;
   color: #fff;
 }
@@ -1836,10 +1834,23 @@ button {
     padding: 0;
   }
 }
+.mobile-landing{
+  display: none;
+  margin-top:30px;
+}
 
 /* media query section*/
 
 @media (min-width: 0) and (max-width: 650px) {
+  .App-main,.App-footer,.App-header{
+    display: none!important;
+  }
+
+  .mobile-landing{
+    display: block;
+  }
+  
+
 }
 
 @media (min-width: 450px) and (max-width: 650px) {
