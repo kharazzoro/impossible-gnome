@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Row, Col, Button } from "reactstrap";
+import { Row, Col, Button, Alert } from "reactstrap";
 import { RingLoader } from "react-spinners";
 import Post from "../components/Post";
 import DisplayPost from "../components/DisplayPost";
@@ -137,7 +137,27 @@ class Feed extends Component {
         });
     }
   };
-
+  handleCommentDelete = (postID,commentID) => {
+    if (window.confirm("Do you really want to delete this comment ?")) {
+       fetch(`/api/post/${postID}/comment/${commentID}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+      })
+        .then(resp => {
+          if (resp.status > 399) return [];
+          return resp.json();
+        })
+        .then(resp => {
+          if (resp !== []) {
+            this.getFeeds();
+          }
+        });
+  };
+};
   updateFilter = (buttonClicked, tag) => {
     if (buttonClicked === "TAGS") {
       if (tag) {
@@ -187,6 +207,7 @@ class Feed extends Component {
     }
   };
   handleShowProfile = userID => {
+    {window.scrollTo(0,0)}
     this.setState({
       showProfile: !this.state.showProfile,
       pofileUserID: this.state.pofileUserID === "" ? userID : ""
@@ -307,6 +328,7 @@ class Feed extends Component {
                       handleKeyUp={this.handleKeyUp}
                       handleShowProfile={this.handleShowProfile}
                       history={this.props.history}
+                      handleCommentDelete={this.handleCommentDelete}
                     />
                   </div>
                 );
@@ -333,6 +355,17 @@ class Feed extends Component {
           ) : (
             ""
           )}
+
+          {user && (user.userType === "organisation" && !user.approved) ? (
+            <Col sm={2} id="textWarning">
+              <Alert color="danger">
+                {"I'm sorry you cannot post until you are verified"}
+              </Alert>
+            </Col>
+          ) : (
+            ""
+          )}
+
           {this.state.createPostClicked ? (
             <Post
               defaultImage={this.state.defaultImage}

@@ -25,7 +25,14 @@ export default class DisplayComment extends Component {
     return this.props;
   };
 
+  handleCommentDelete=(postId,commentID)=>{
+       this.props.handleCommentDelete(postId,commentID)
+  }
+
   render() {
+    const postData = this.props.feedData;
+    const user = this.props.user;
+
     const TRANSITION_ENTER_TIMEOUT = 500,
       TRANSITION_LEAVE_TIMEOUT = 300;
     return !this.isPageRady() ? null : (
@@ -82,7 +89,7 @@ export default class DisplayComment extends Component {
                             key={comment.commentID}>
                             <Row>
                               <Col sm={1} className="commenterAvatar">
-                                <img
+                                 <img
                                   src={comment.imageSource}
                                   alt={comment.author}
                                   onClick={() => {
@@ -121,8 +128,12 @@ export default class DisplayComment extends Component {
                               <Col sm={1} className="commentCreatedAtSince">
                                 <span>
                                   <i className="fa fa-clock-o" />&nbsp;{comment.createdAtSince.toUpperCase() +
-                                    " ago"}&nbsp;
-                                </span>
+                                    " ago"}&nbsp; &nbsp; 
+                                  {comment.authorID === user.userID ? (
+                                  <i title="remove comment" onClick={()=>(this.handleCommentDelete(this.props.feedData.postID,comment.commentID))} class="fa fa-trash" aria-hidden="true"/>
+                                   ):
+                                    null}
+                                 </span>
                               </Col>
                             </Row>
                           </ListGroupItem>
@@ -151,6 +162,10 @@ export default class DisplayComment extends Component {
                                 <span>
                                   <i className="fa fa-clock-o" />&nbsp;{comment.createdAtSince.toUpperCase() +
                                     " ago"}&nbsp;
+                                 {comment.authorID === user.userID  ? (
+                                  <i title="remove comment" onClick={()=>(this.handleCommentDelete(this.props.feedData.postID,comment.commentID))} class="fa fa-trash" aria-hidden="true"/>
+                                   ):
+                                 null}
                                 </span>
                               </Col>
                             </Row>
