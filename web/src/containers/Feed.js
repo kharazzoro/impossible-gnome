@@ -349,10 +349,14 @@ class Feed extends Component {
             <Col sm={2} id="usersBelongToGroup">
               <Button
                 className="btn btn-primary btn btn-secondary groupBtn"
-                onClick={this.loadPost}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/group-info"
+                  });
+                }}
               >
-                 <i class="fa fa-users" aria-hidden="true"/>&nbsp;&nbsp;
-                 Group Members
+                <i class="fa fa-users" aria-hidden="true" />&nbsp;&nbsp; Group
+                info
               </Button>
             </Col>
           ) : (

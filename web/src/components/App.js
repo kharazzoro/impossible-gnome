@@ -21,6 +21,7 @@ import UserAgreement from "./views/UserAgreement";
 import PrivacyPolicy from "./views/PrivacyPolicy";
 import Faq from "./views/Faq";
 import Feedback from "./views/Feedback";
+import GroupInfo from "./views/GroupInfo";
 
 const Main = props => {
   return (
@@ -62,6 +63,15 @@ const Main = props => {
         path="/feed"
         render={routeProps => <Feed {...routeProps} user={props.user} />}
       />
+      <Route
+        path="/group-info"
+        render={routeProps =>
+          props.user.userType === "organisation" ? (
+            <GroupInfo {...routeProps} user={props.user} />
+          ) : null
+        }
+      />
+
       <Route
         path="/updateInterest"
         render={routeProps => (
