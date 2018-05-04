@@ -333,6 +333,7 @@ class Feed extends Component {
           ) : (
             ""
           )}
+          {/* if user is an organisation and approved display the group info */}
           {this.state.createPostClicked ? (
             <Post
               defaultImage={this.state.defaultImage}
