@@ -536,6 +536,22 @@ class UserModel extends Model {
       );
     });
   }
+
+  //To Get the users are belongs to one group
+  getUsersBelongToSingleGroup(organisationName) {
+    return new Sequence((accept, reject) => {
+      this.db.query(
+        `MATCH (u:Person {organisationName: {organisationName}})
+            RETURN  COLLECT({firstName:u.firstName,lastName:u.lastName,imageSource:u.imageSource,
+              approved:u.approved,role:u.role,email:u.email}) `,
+        { organisationName },
+        (err, usersList) => {
+          if (err) return reject(err);
+          return accept(usersList);
+        }
+      );
+    });
+  }
 }
 
 module.exports = new UserModel();

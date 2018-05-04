@@ -21,7 +21,8 @@ import UserAgreement from "./views/UserAgreement";
 import PrivacyPolicy from "./views/PrivacyPolicy";
 import Faq from "./views/Faq";
 import Feedback from "./views/Feedback";
-import MobileLandingPage from "./views/MobileLandingPage"
+import MobileLandingPage from "./views/MobileLandingPage";
+import GroupInfo from "./views/GroupInfo";
 
 const Main = props => {
   return (
@@ -83,6 +84,14 @@ const Main = props => {
             getUser={props.getUser}
           />
         )}
+      />
+      <Route
+        path="/group-info"
+        render={routeProps =>
+          props.user.userType === "organisation" ? (
+            <GroupInfo {...routeProps} user={props.user} />
+          ) : null
+        }
       />
       <Route path="/userAgreement" render={() => <UserAgreement />} />
       <Route path="/privacyPolicy" render={() => <PrivacyPolicy />} />
@@ -170,7 +179,7 @@ class App extends Component {
               />
             </Col>
           </Row>
-            <MobileLandingPage  />
+          <MobileLandingPage />
           <Row className="App-footer">
             <Footer />
           </Row>

@@ -1,0 +1,45 @@
+.group-info-container {
+   color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  width: 90%;
+  font-family: "Quicksand Book";
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #e6e7e9;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+
+}
+.group-info-container .row {
+  margin: 5px;
+}
+
+#headerAdminDashboardLink {
+  text-align: right;
+  padding-right: 1em;
+}
+
+.group-info-container span {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid #e6e7e9;
+
+}
+
+.group-info-container span:hover {
+  border-bottom: 4px solid #ff4754;
+  padding-bottom: 0.5em;
+
+}
+
+@media only screen and (min-width: 450px) {
+  .group-info-container {
+    width: 420px;
+    margin: 10px;
+  }
+}

@@ -366,6 +366,25 @@ class Feed extends Component {
             ""
           )}
 
+          {(user && (user.userType === "organisation" && user.approved)) ||
+          user.admin ? (
+            <Col sm={2} id="usersBelongToGroup">
+              <Button
+                className="btn btn-primary btn btn-secondary groupBtn"
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/group-info"
+                  });
+                }}
+              >
+                <i class="fa fa-users" aria-hidden="true" />&nbsp;&nbsp; Group
+                info
+              </Button>
+            </Col>
+          ) : (
+            ""
+          )}
+          
           {this.state.createPostClicked ? (
             <Post
               defaultImage={this.state.defaultImage}
