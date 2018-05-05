@@ -207,6 +207,7 @@ class Feed extends Component {
     }
   };
 
+  //update comment
   handleKeyUpUpdateComment = (e, postID, commentID) => {
     const keyCode = e.keyCode;
     if (keyCode === 27) {
