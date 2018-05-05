@@ -5,3 +5,27 @@ span.commentAuthor {
 span.commentAuthor:hover {
   color: #003366;
 }
+.edit-comment {
+  color: #003366;
+  position: absolute;
+  top: 7px;
+  right: 0;
+  cursor: pointer;
+  width: 1.1em;
+}
+
+.delete-comment {
+  cursor: pointer;
+}
+.delete-comment:hover,
+.edit-comment:hover {
+  color: #ed684a;
+}
+
+.commentContentContainer #EditTextarea {
+  min-height: 4em;
+}
+
+#EditHiegerText {
+  min-height: 9.5em;
+}

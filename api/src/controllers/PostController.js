@@ -117,6 +117,23 @@ class PostController extends Controller {
       }
     });
 
+    // route to Edit comment
+    this.route("updateComment", {
+      path: "/api/post/{postID}/comment/{commentID}",
+      handler: this.updateComment,
+      method: "PUT",
+      auth: "session",
+      validate: {
+        content: Joi.string()
+          .min(3)
+          .required()
+      },
+      validateParams: {
+        postID: Joi.string().alphanum(),
+        commentID: Joi.string().alphanum()
+      }
+    });
+
     this.route("reportPost", {
       method: "GET",
       path: "/api/post/{postID}/report",
@@ -272,28 +289,53 @@ class PostController extends Controller {
       });
   }
 
-  deleteCommentHandler(request, reply) {
-     const commentID = request.params.commentID;
+  updateComment(request, reply) {
+    const commentID = request.params.commentID;
     const postID = request.params.postID;
+    const content = request.payload.content;
     const user = request.auth.credentials;
-      postModel
-      .commentBelongsToUser(user,commentID, postID)
+    postModel
+      .commentBelongsToUser(user, commentID, postID)
       .then((accept, reject) => {
         postModel
-          .deleteComment(user,commentID, postID)
+          .updateComment(commentID, postID, content, user)
           .error(reject)
           .done(accept);
       })
-        .error(e => {
-          if (e === "permission denied") {
-            reply({}).code(403);
-          } else {
-            reply({ msg: e }).code(500);
-          }
-        })
-        .done(() => {
-          reply({}).code(200);
-        });
+      .error(e => {
+        if (e === "permission denied") {
+          reply({}).code(403);
+        } else {
+          reply({ msg: e }).code(500);
+        }
+      })
+      .done(() => {
+        reply({}).code(200);
+      });
+  }
+
+  deleteCommentHandler(request, reply) {
+    const commentID = request.params.commentID;
+    const postID = request.params.postID;
+    const user = request.auth.credentials;
+    postModel
+    .commentBelongsToUser(user,commentID, postID)
+    .then((accept, reject) => {
+        postModel
+        .deleteComment(user,commentID, postID)
+        .error(reject)
+        .done(accept);
+      })
+      .error(e => {
+        if (e === "permission denied") {
+          reply({}).code(403);
+        } else {
+          reply({ msg: e }).code(500);
+        }
+      })
+      .done(() => {
+        reply({}).code(200);
+      });
   }
 
   reportPostHandler(request, reply) {

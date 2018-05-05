@@ -237,6 +237,24 @@ class PostModel extends Model {
       );
     });
   }
+
+  updateComment(commentID, postID, content, user){
+
+    let userID = user.userID;
+    return new Sequence((accept, reject) => {
+      this.db.query(
+        "MATCH(u:Person {userID:{userID}})-[c:COMMENTS{commentID:{commentID}}]->(p:Post{postID:{postID}}) SET c.content={content} RETURN c" ,
+        {commentID, postID, content, userID},
+        (err, data) => {
+          if (err) return reject(err);
+          if (data.length === 0 && !user.admin)
+            return reject("permission denied");
+          return accept();
+        }
+      );
+    });
+  }
+  
   resolvePost(postID) {
     return this.db.getOne(
       "MATCH (p:Post{postID: { postID }}) SET p.resolved = true RETURN p;",
@@ -251,7 +269,6 @@ class PostModel extends Model {
         "MATCH(u:Person {userID:{userID}})-[c:COMMENTS{commentID:{commentID}}]->(p:Post{postID:{postID}}) RETURN c, count(*)" ,
         { userID, commentID,postID},
         (err, data) => {
-          console.log(data)
           if (err) return reject(err);
           if (data.length === 0 && !user.admin)
             return reject("permission denied");

@@ -180,7 +180,7 @@ class DisplayPost extends Component {
               handleShowProfile={this.props.handleShowProfile}
               history={this.props.history}
               handleCommentDelete={this.props.handleCommentDelete}
-
+              handleKeyUpUpdateComment={this.props.handleKeyUpUpdateComment}
             />
           </Col>
         </Row>

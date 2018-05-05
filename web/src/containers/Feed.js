@@ -206,6 +206,35 @@ class Feed extends Component {
       );
     }
   };
+
+  handleKeyUpUpdateComment = (e, postID, commentID) => {
+    const keyCode = e.keyCode;
+    if (keyCode === 27) {
+      this.setState({
+        editMode: false
+      });
+    } else if (keyCode === 13) {
+
+      const commentContent = { content: e.target.value.trim()};
+      fetch(`/api/post/${postID}/comment/${commentID}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin",
+        body: JSON.stringify(commentContent)
+      })
+        // .then(resp => resp.json())
+        .then(resp => {
+          if (resp !== []) {
+            this.getFeeds();
+          }
+         });
+  
+    }
+  };
+
   handleShowProfile = userID => {
     {window.scrollTo(0,0)}
     this.setState({
@@ -329,6 +358,7 @@ class Feed extends Component {
                       handleShowProfile={this.handleShowProfile}
                       history={this.props.history}
                       handleCommentDelete={this.handleCommentDelete}
+                      handleKeyUpUpdateComment={this.handleKeyUpUpdateComment}
                     />
                   </div>
                 );
