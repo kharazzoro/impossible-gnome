@@ -269,10 +269,7 @@ class PostModel extends Model {
         "MATCH(u:Person {userID:{userID}})-[c:COMMENTS{commentID:{commentID}}]->(p:Post{postID:{postID}}) RETURN c, count(*)" ,
         { userID, commentID,postID},
         (err, data) => {
-          if (err) return reject(err);
-          if (data.length === 0 && !user.admin)
-            return reject("permission denied");
-
+          if (err) return reject(err);            
           return accept();
         }
       );

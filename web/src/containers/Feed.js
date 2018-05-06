@@ -209,12 +209,6 @@ class Feed extends Component {
 
   //update comment
   handleKeyUpUpdateComment = (e, postID, commentID) => {
-    const keyCode = e.keyCode;
-    if (keyCode === 27) {
-      this.setState({
-        editMode: false
-      });
-    } else if (keyCode === 13) {
 
       const commentContent = { content: e.target.value.trim()};
       fetch(`/api/post/${postID}/comment/${commentID}`, {
@@ -233,7 +227,7 @@ class Feed extends Component {
           }
          });
   
-    }
+ 
   };
 
   handleShowProfile = userID => {

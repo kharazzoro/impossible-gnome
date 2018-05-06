@@ -11,7 +11,7 @@ export default class DisplayComment extends Component {
     commentId: null
   };
 
-  updateCommentMode = (commentId, commentContent) => {
+  updateEditMode = (commentId, commentContent) => {
     this.setState({
       editMode: true,
       commentId: commentId,
@@ -34,7 +34,7 @@ export default class DisplayComment extends Component {
 
   handleKeyUp = (e, postID, commentID) => {
     const keyCode = e.keyCode;
-    // if content same comment should make logic to prevent send it to server
+
     if (keyCode === 27) {
       this.setState({
         editMode: false
@@ -135,7 +135,7 @@ export default class DisplayComment extends Component {
                                 {comment.authorID === user.userID ? (
                                   <i
                                     onClick={() =>
-                                      this.updateCommentMode(
+                                      this.updateEditMode(
                                         comment.commentID,
                                         comment.content
                                       )
@@ -219,7 +219,7 @@ export default class DisplayComment extends Component {
                                 {comment.authorID === user.userID ? (
                                   <i
                                     onClick={() =>
-                                      this.updateCommentMode(
+                                      this.updateEditMode(
                                         comment.commentID,
                                         comment.content
                                       )
