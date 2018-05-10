@@ -1,8 +1,8 @@
 import React from "react";
 import { Row } from "reactstrap";
-import "../../assets/css/view/GroupIndividualProfile.css";
+import "../../assets/css/view/IndividualProfile.css";
 
-const GroupIndividualProfile = props => (
+const IndividualProfile = props => (
   <Row key={props.i} className="profile-item">
     <h5>
       {props.firstName} {props.lastName}
@@ -14,4 +14,4 @@ const GroupIndividualProfile = props => (
   </Row>
 );
 
-export default GroupIndividualProfile;
+export default IndividualProfile;
