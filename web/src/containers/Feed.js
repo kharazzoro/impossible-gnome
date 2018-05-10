@@ -345,8 +345,7 @@ class Feed extends Component {
           ) : (
             ""
           )}
-          {(user && (user.userType === "organisation" && user.approved)) ||
-          user.admin ? (
+          {(user && (user.userType === "organisation" && user.approved))? (
             <Col sm={2} id="usersBelongToGroup">
               <Button
                 className="btn btn-primary btn btn-secondary groupBtn"

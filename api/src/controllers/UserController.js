@@ -101,7 +101,7 @@ class UserController extends Controller {
       handler: this.getNotApprovedOrgs
     });
 
-    //Get all users belong to same user group
+    //Get all users belong to same user Organisation
     this.route("getUsersBelongToSingleOrganisation", {
       method: "GET",
       path: "/api/user/organisations/{organisation}",
@@ -318,7 +318,7 @@ class UserController extends Controller {
     userModel
       .getUsersBelongToSingleOrganisation(organisation)
       .done(data => {
-        reply(data).code(200);
+         reply(data).code(200);
       })
       .error(err => reply({ msg: `error: ${err}` }).code(500));
 

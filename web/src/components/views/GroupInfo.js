@@ -23,6 +23,7 @@ export default class GroupInfo extends Component {
       }
     })
       .then(handleErrors)
+      .then(response => response.json())
       .then(response => {
         this.setState({
           users: response[0],
