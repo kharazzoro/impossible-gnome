@@ -36,7 +36,13 @@ export default class BuildOrgProfile extends Component {
         : "",
       uploadingImage: false,
       imageLoadError: null,
-      showInterestsMoreInfo: false
+      showInterestsMoreInfo: false,
+      currentPassword: "",
+      newPassword: "",
+      retypePassword: "",
+      error: [],
+      showChangePasswordSection: false,
+      successChangePassword:false
     };
   }
 
@@ -61,6 +67,135 @@ export default class BuildOrgProfile extends Component {
     this.setState({
       [name]: value
     });
+  };
+
+  ShowPasswordSection = () => {
+    this.setState({
+      showChangePasswordSection: true
+    });
+  };
+
+  handleCancelChange = () => {
+    this.setState({
+      showChangePasswordSection: false,
+      currentPassword: "",
+      newPassword: "",
+      retypePassword: "",
+      error: []
+    });
+  };
+
+  handleChangePassword = () => {
+    let { currentPassword } = this.state,
+      { newPassword } = this.state,
+      { retypePassword } = this.state;
+    let error = [];
+    if (!currentPassword) {
+      error.push("you need to put your current password");
+    }
+    if (newPassword === currentPassword) {
+      error.push("your need to put a different password");
+    }
+    if (!newPassword) {
+      error.push("you need to put your new password");
+    } else if (!retypePassword) {
+      error.push("you need to retype your new password");
+    }
+    if (retypePassword !== newPassword) {
+      error.push("new password did not match");
+    }
+    if (error.length > 0) {
+      this.setState(
+        {
+          error
+        },
+        () => {
+          //clear the error message
+          setTimeout(() => {
+            this.setState({
+              error: [],
+            });
+          }, 5000);
+        }
+      );
+    } else {
+      this.handleChangepasswordSubmit(
+        currentPassword,
+        newPassword,
+        retypePassword
+      );
+    }
+  };
+
+  handleChangepasswordSubmit = (
+    currentPassword,
+    newPassword,
+    retypePassword
+  ) => {
+    fetch("/api/user/password", {
+      credentials: "same-origin",
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+        retypePassword: retypePassword
+      })
+    })
+      .then(response => {
+        if(response.status>399){
+          console.log(response.statusText)
+          let error=[];
+          error.push(response.statusText)
+          this.setState(
+            {
+              error
+            },
+            () => {
+              //clear the error message
+              setTimeout(() => {
+                this.setState({
+                  error: [],
+                });
+              }, 3000);
+            }
+          );
+        }else{
+          this.setState(
+            {
+              successChangePassword:true
+            },
+            () => {
+              //clear the error message
+              setTimeout(() => {
+                this.setState({
+                  successChangePassword: false,
+                });
+                this.handlelogout();
+              }, 5000);
+            }
+          );
+          
+        }
+      })
+      .catch(err => console.error(err))
+  };
+
+  handlelogout = () => {
+    fetch(`/api/auth/logout`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      //must be set else for next request you will get 401:unauthorised
+      credentials: "same-origin"
+    }).then(
+      response =>
+        response.status === 200 ? this.props.history.push("/") : null
+    );
   };
 
   //to handle the selection when the button is clicked
@@ -326,6 +461,135 @@ export default class BuildOrgProfile extends Component {
                 </Col>
                 <Col sm={1} />
               </FormGroup>
+              
+              {this.state.showChangePasswordSection ? (
+              <div className="changePasswordBoxActive">
+                <FormGroup row>
+                  <Col sm={1} />
+                  <Col sm={10}>
+                    <Input
+                      type="password"
+                      name="currentPassword"
+                      id="current"
+                      placeholder="Current Password"
+                      value={this.state.currentPassword}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                  <Col sm={1} />
+                </FormGroup>
+
+                <FormGroup row>
+                  <Col sm={1} />
+                  <Col sm={10}>
+                    <Input
+                      type="password"
+                      name="newPassword"
+                      id="New"
+                      placeholder="New Password"
+                      value={this.state.newPassword}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                  <Col sm={1} />
+                </FormGroup>
+
+                <FormGroup row>
+                  <Col sm={1} />
+                  <Col sm={10}>
+                    <Input
+                      type="password"
+                      name="retypePassword"
+                      id="Retype"
+                      placeholder="Retype New Password"
+                      value={this.state.retypePassword}
+                      onChange={this.handleChange}
+                    />
+                  </Col>
+                  <Col sm={1} />
+                </FormGroup>
+                <div className="saveCancelChangeBox">
+                  <Row>
+                    <Col sm={1} />
+                    <Col sm={10}>
+                      <Button
+                        id="saveChange"
+                        onClick={this.handleChangePassword}
+                      >
+                        Save Change
+                      </Button>
+                    </Col>
+                    <Col sm={1} />
+                  </Row>
+
+                  <Row>
+                    <Col sm={1} />
+                    <Col sm={10}>
+                      <Button
+                        id="cancelChange"
+                        onClick={this.handleCancelChange}
+                      >
+                        Cancel
+                      </Button>
+                    </Col>
+                    <Col sm={1} />
+                  </Row>
+                </div>
+                {this.state.successChangePassword ? (
+                  <Alert className="sucessChageAlert" color="success">
+                    <svg
+                      class="checkmark"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52"
+                    >
+                      <circle
+                        class="checkmark__circle"
+                        cx="26"
+                        cy="26"
+                        r="25"
+                        fill="none"
+                      />
+                      <path
+                        class="checkmark__check"
+                        fill="none"
+                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                      />
+                    </svg>
+                    <p>Your password has been successfully changed</p>
+                  </Alert>):null}
+                  
+                {this.state.error.length > 0 ? (
+                  <Row>
+                    <Col sm={3} />
+                    <Col sm={8} className="feedbackError">
+                      {window.scrollTo(0, window.innerHeight)}
+                      <Alert color="danger">
+                        {this.state.error.map((error, i) => (
+                          <p key={i}>&ndash;{error}</p>
+                        ))}
+                      </Alert>
+                    </Col>
+                    <Col sm={1} />
+                  </Row>
+                ) : (
+                  ""
+                )}
+              </div>
+            ) : (
+              <Row>
+                <Col sm={1} />
+                <Col sm={10}>
+                  <Button
+                    id="doneChangePasswordButton"
+                    onClick={this.ShowPasswordSection}
+                  >
+                    Change Your Password
+                  </Button>
+                </Col>
+                <Col sm={1} />
+              </Row>
+            )}
+            
               <FormGroup row>
                 <Col sm={1} />
                 <Label for="url" sm={10}>

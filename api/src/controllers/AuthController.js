@@ -78,6 +78,19 @@ class AuthController extends Controller {
       }
     });
 
+    //route to update user password
+    this.route("updateUserPassword", {
+      method: "PUT",
+      path: "/api/user/password",
+      auth: "session",
+      handler: this.updateUserPassword,
+      validate: {
+        currentPassword: Joi.string().required(),
+        newPassword: Joi.string().required(),
+        retypePassword: Joi.string().required()
+      }
+    });
+
     this.route("createUser", {
       method: "POST",
       path: "/api/user/create",
@@ -203,6 +216,49 @@ class AuthController extends Controller {
             EmailService.sendRecoverPasswordEmail(authUser, newPassword);
             reply(true).code(200);
           });
+        }
+      })
+      .error(msg => {
+        if (msg == "user not found") {
+          reply({ msg }).code(404);
+        } else {
+          reply({ msg }.code(500));
+        }
+      });
+  }
+
+  updateUserPassword(request, reply) {
+    let email = request.auth.credentials.email;
+    //get User
+    userModel
+      .getAuthUser({ email })
+      .then((accept, reject, authUser) => {
+        if (authUser.fromFacebook && !authUser.password) {
+          reply({
+            msg: "Facebook users cannot change passwords through this service"
+          }).code(422);
+        } else {
+          const inputCurrentPassword = request.payload.currentPassword,
+            inputNewPassword = request.payload.newPassword,
+            inputRetypePassword = request.payload.retypePassword,
+            user = request.auth.credentials.user,
+            userHashedPassword = request.auth.credentials.password;
+          //Compare Password
+          passwordHelper
+            .validatePassword(inputCurrentPassword, userHashedPassword)
+            .done(validPassword => {
+              if (validPassword) {
+               //change password
+                userModel
+                  .updateUserPassword(authUser, inputNewPassword)
+                  .then(() => {
+                    reply(true).code(200);
+                  });
+              } else {
+                reply({}).code(401);
+              }
+            })
+            .error(reject);
         }
       })
       .error(msg => {

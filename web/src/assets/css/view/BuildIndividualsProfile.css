@@ -2,3 +2,51 @@
     min-height: 150px;
   }
   
+
+#doneChangePasswordButton {
+  margin-top:10px;
+  background-color: #68c5b5;
+  height: 61px;
+  width: 50%;
+  border-radius: 0;
+}
+
+#doneChangePasswordButton {
+  height: 50px;
+}
+
+#doneChangePasswordButton:hover {
+  background-color: #c32830;
+}
+
+.saveCancelChangeBox{
+ margin-top:10px;
+  width:70%;
+   display: flex;
+  justify-content: space-around;
+  align-items: center;
+ }
+
+.saveCancelChangeBox button{
+  width:100%;
+  background-color: #68c5b5;
+
+}
+.saveCancelChangeBox button:hover{
+
+background-color: #c32830;
+}
+.changePasswordBoxActive{
+  background: #FAF6F7;
+  border: 1px solid #e6e7e9;
+  margin: 20px;
+  padding: 10px;
+}
+
+.sucessChageAlert{
+  margin-top:-200px;
+}
+
+.sucessChageAlert{
+  text-align: center
+}
