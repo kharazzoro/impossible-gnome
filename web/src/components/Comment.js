@@ -13,7 +13,7 @@ export default class Comment extends Component {
             <InputGroup>
               <Input
                 id={this.props.postID}
-                type="text"
+                type="textarea"
                 className="newComment"
                 placeholder="Interested? Drop your line here. Hit enter to sent."
                 onChange={e => this.props.handleChange(e)}
