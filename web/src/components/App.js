@@ -48,6 +48,7 @@ const Main = props => {
               user={props.user}
               setUser={props.setUser}
               getUser={props.getUser}
+              handlelogout={props.handlelogout}
             />
           ) : (
             <BuildIndividualsProfile
@@ -55,6 +56,7 @@ const Main = props => {
               user={props.user}
               setUser={props.setUser}
               getUser={props.getUser}
+              handlelogout={props.handlelogout}
             />
           )
         }
@@ -143,6 +145,22 @@ class App extends Component {
   setUser = user => {
     this.setState({ user });
   };
+  handlelogout = () => {
+    fetch(`/api/auth/logout`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      //must be set else for next request you will get 401:unauthorised
+      credentials: "same-origin"
+    }).then(response => {
+      if (response.status === 200) {
+        this.props.history.push("/");
+        window.location.reload();
+      }
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -163,6 +181,7 @@ class App extends Component {
                 user={this.state.user}
                 setUser={this.setUser}
                 getUser={this.getUser}
+                handlelogout={this.handlelogout}
                 location={this.props.location}
                 register={this.state.register}
                 login={this.state.login}
@@ -170,7 +189,7 @@ class App extends Component {
               />
             </Col>
           </Row>
-            <MobileLandingPage  />
+          <MobileLandingPage  />
           <Row className="App-footer">
             <Footer />
           </Row>
