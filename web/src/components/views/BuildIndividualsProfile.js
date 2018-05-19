@@ -174,7 +174,7 @@ export default class BuildIndividualsProfile extends Component {
                 this.setState({
                   successChangePassword: false
                 });
-                this.handlelogout();
+                this.props.handlelogout();
               }, 5000);
             }
           );
@@ -183,19 +183,6 @@ export default class BuildIndividualsProfile extends Component {
       .catch(err => console.error(err));
   };
 
-  handlelogout = () => {
-    fetch(`/api/auth/logout`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      //must be set else for next request you will get 401:unauthorised
-      credentials: "same-origin"
-    }).then(
-      response =>
-        response.status === 200 ? this.props.history.push("/") : null
-    );
-  };
 
   //to handle the selection when the button is clicked
   handleInterestSelection = evt => {
