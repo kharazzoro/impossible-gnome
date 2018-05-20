@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { Col, Row, Container } from "reactstrap";
-import "../../assets/css/view/GroupInfo.css";
-import GroupIndividualProfile from "./GroupIndividualProfile";
-export default class GroupInfo extends Component {
+import "../../assets/css/view/OrganisationInfo.css";
+import IndividualProfile from "./IndividualProfile";
+import { handleErrors } from "../../utillity/helpers";
+
+export default class OrganisationInfo extends Component {
   state = {
     users: null,
     usersTotal: null
@@ -20,14 +22,9 @@ export default class GroupInfo extends Component {
         Accept: "application/json"
       }
     })
+      .then(handleErrors)
+      .then(response => response.json())
       .then(response => {
-        if (response.status > 399) {
-          throw new Error("Can't handle your request");
-        }
-        return response.json();
-      })
-      .then(response => {
-        console.log(response[0].length);
         this.setState({
           users: response[0],
           usersTotal: response[0].length
@@ -40,7 +37,6 @@ export default class GroupInfo extends Component {
     const { location } = this.props;
     const { user } = this.props;
     const { users } = this.state;
-    console.log(users);
     return (
       <Col className="group-page">
         <Container className="group-info-container">
@@ -106,7 +102,7 @@ export default class GroupInfo extends Component {
             location.pathname !== "/feedback" ? (
               <Col xs="12" className="profile-container">
                 {users.map((profile, i) => (
-                  <GroupIndividualProfile i={i} {...profile} />
+                  <IndividualProfile i={i} {...profile} />
                 ))}
               </Col>
             ) : null}
