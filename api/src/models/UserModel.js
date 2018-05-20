@@ -537,8 +537,7 @@ class UserModel extends Model {
     });
   }
 
-  //To Get the users are belongs to one group
-  getUsersBelongToSingleGroup(organisationName) {
+  getUsersBelongToSingleOrganisation(organisationName) {
     return new Sequence((accept, reject) => {
       this.db.query(
         `MATCH (u:Person {organisationName: {organisationName}})

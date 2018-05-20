@@ -101,12 +101,12 @@ class UserController extends Controller {
       handler: this.getNotApprovedOrgs
     });
 
-    //Get all users belong to same user group
-    this.route("getUsersBelongToSingleGroup", {
+    //Get all users belong to same user organisation
+    this.route("getUsersBelongToSingleOrganisation", {
       method: "GET",
       path: "/api/user/organisations/{organisation}",
       auth: "session",
-      handler: this.getUsersBelongToSingleGroup
+      handler: this.getUsersBelongToSingleOrganisation
     });
   }
 
@@ -313,10 +313,10 @@ class UserController extends Controller {
     return;
   }
   //Get All Users Belong to same User Group
-  getUsersBelongToSingleGroup(request, reply) {
+  getUsersBelongToSingleOrganisation(request, reply) {
     let organisation = request.params.organisation;
     userModel
-      .getUsersBelongToSingleGroup(organisation)
+      .getUsersBelongToSingleOrganisation(organisation)
       .done(data => {
         reply(data).code(200);
       })
